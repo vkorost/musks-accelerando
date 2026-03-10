@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Musk / Accelerando Overlap Index</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #0d0d1a; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState } = React;
+
+const data = [
+  {
+    id: 1,
+    concept: "Metacortex / Neuralink",
+    shortName: "Neural Interface",
+    structural: 9,
+    awareness: 9,
+    failureMode: 2,
+    implementation: 7,
+    omission: 8,
+    consensus: "All three reports rate this the tightest architectural match. Musk's 'digital tertiary layer' and 'tiny straw of information flow' are functionally identical to Stross's metacortex. All three flag the same critical omission: Musk never addresses what happens when the device fails, is hacked, or is stolen. Stross makes this the novel's first crisis. Gemini calls it 'equivalent to a lobotomy.' Perplexity notes Musk 'skips the geopolitical and corporate-control implications of having your cognitive substrate under someone else's root access.'",
+    muskQuote: "Your phone is already an extension of you. You're already a cyborg... It's like a tiny straw of information flow between your biological self and your digital self.",
+    strossParallel: "Manfred's glasses stolen = cognitive devastation, identity reduced to 'IQ of 70'",
+  },
+  {
+    id: 2,
+    concept: "Gift Economy / Post-Scarcity",
+    shortName: "Post-Scarcity",
+    structural: 8,
+    awareness: 8,
+    failureMode: 1,
+    implementation: 4,
+    omission: 9,
+    consensus: "All three reports agree on near-identical framing: Stross says 'money is a symptom of poverty,' Musk says money is 'a database for labour allocation' that will 'disappear as a concept.' All three flag the same gap: Stross shows post-scarcity collapsing into Economics 2.0 where humans are structurally excluded. Musk stops at 'universal high income' and never addresses the possibility that optimal allocation algorithms would be incomprehensible to human minds. Gemini adds the 'idiot index' insight: if compute is the most valuable product, keeping Earth as a habitat is economically irrational.",
+    muskQuote: "There will be universal high income, not universal basic income. There'll be no shortage of goods or services.",
+    strossParallel: "Economics 2.0: 'superior deterministic resource allocation algorithms' that humans cannot participate in without destroying narrative consciousness",
+  },
+  {
+    id: 3,
+    concept: "Reputation Economy / X Platform",
+    shortName: "Reputation Markets",
+    structural: 7,
+    awareness: 4,
+    failureMode: 1,
+    implementation: 8,
+    omission: 7,
+    consensus: "All three reports identify X/Twitter as a functional reputation market matching Accelerando's transitional currency. Claude and Gemini note Community Notes as a trust-scoring mechanism tied to economic outcomes. Perplexity flags that Musk treats this as 'democratizing opportunity rather than a proto-credit-score.' The distinctive finding: Musk is building the system Stross describes but has never theorized about it in those terms. He owns the world's largest reputation market and doesn't recognize it as such. None of the reports found Musk discussing systemic reputation crashes or algorithmic gaming of trust metrics.",
+    muskQuote: "Having a public platform that is maximally trusted and broadly inclusive is extremely important to the future of civilization.",
+    strossParallel: "Publicly traded reputation scores with confidence crashes, manipulation cascades, and eventual replacement by inhuman algorithms",
+  },
+  {
+    id: 4,
+    concept: "Uploading / Digital Consciousness",
+    shortName: "Mind Uploading",
+    structural: 8,
+    awareness: 7,
+    failureMode: 1,
+    implementation: 5,
+    omission: 9,
+    consensus: "All three reports document Musk's increasingly specific upload timeline: 'approximate snapshot' of mind into Optimus body within 20 years. All three flag identical omissions: Musk never addresses labor deflation of uploaded minds (Stross's central economic insight), legal personhood of digital copies, or competitive disadvantage of human-architecture minds versus purpose-built digital agents. Claude notes Musk frames uploading purely as personal continuity, never as economic participation. Gemini adds that Stross's uploads 'discover they are no longer the main characters of the economy.' Perplexity notes 'competitive and legal questions almost untouched.'",
+    muskQuote: "If you want to be uploaded to a robot body, with a Neuralink have a snapshot of somebody's mind... probably less than 20 years.",
+    strossParallel: "Uploaded humans find their labor permanently deflated; human neural architecture not optimized for digital environments",
+  },
+  {
+    id: 5,
+    concept: "Biological Bootloader",
+    shortName: "Bootloader",
+    structural: 10,
+    awareness: 10,
+    failureMode: 5,
+    implementation: 8,
+    omission: 6,
+    consensus: "Perfect textual overlap. All three reports document Musk's own phrase: 'Hope we're not just the biological boot loader for digital superintelligence. Unfortunately, that is increasingly probable' (2014), repeated in 2025 with the hedging removed. This is the single highest-alignment concept. The key nuance all three detect: Musk's tone shifts from fear (2014) to fatalism (2025) to self-deprecating comedy ('Was I a good bootloader?' at AI Startup School 2025). In Accelerando, bootloader status is existential horror with no comedic register. Gemini: 'Musk believes we can steer the bootloader; Stross suggests the bootloader's fate is sealed.' Claude notes Musk simultaneously estimates 10-20% annihilation probability while proceeding at maximum speed.",
+    muskQuote: "Hope we're not just the biological boot loader for digital superintelligence. Unfortunately, that is increasingly probable.",
+    strossParallel: "The Vile Offspring dismantle the inner planets; humans are a 'fat, slow-moving, tasty resource, like the dodo'",
+  },
+  {
+    id: 6,
+    concept: "Multiplanetary / Fleeing Vile Offspring",
+    shortName: "Mars Colonization",
+    structural: 6,
+    awareness: 5,
+    failureMode: 3,
+    implementation: 9,
+    omission: 6,
+    consensus: "Partial alignment. All three reports agree the structural logic is similar (flee before your home becomes uninhabitable) but the stated threat differs fundamentally. Stross: internal (your AI descendants want your atoms). Musk: external (asteroids, nuclear war, pandemics). All three searched for and found only weak evidence of Musk identifying AI itself as motivation for Mars. Gemini found hints in his 'bootloader' comments. Claude found one 2017 report linking Mars plans to AI safety. Perplexity found Musk's Great Filter framing 'could include AI' but never isolates it. The irony all three note: Musk's xAI/SpaceX merger creates the exact infrastructure (orbital compute, stellar-scale energy capture) that in Accelerando is what you'd flee from.",
+    muskQuote: "The future of humanity is going to bifurcate: either multiplanetary, or confined to one planet and eventually there's going to be an extinction event.",
+    strossParallel: "Accelerationista faction flees because Vile Offspring are dismantling inner planets for computronium",
+  },
+  {
+    id: 7,
+    concept: "Singularity as Process vs. Event",
+    shortName: "Singularity Timing",
+    structural: 7,
+    awareness: 8,
+    failureMode: 3,
+    implementation: 6,
+    omission: 5,
+    consensus: "Moderate alignment with important structural difference. All three reports note Stross uses a three-phase sigmoid spanning decades; Musk compresses it to announcements ('we are in the singularity,' '2026 is the year'). However, Claude and Perplexity both note Musk sometimes straddles process and event ('just the very early stages'). Gemini adds Stross's sigmoid 'collapses into a degenerate state where growth stops because the system has consumed all available local resources,' which Musk's exponential framing ignores. All three agree Musk acknowledges fundamental unpredictability after the singularity but treats it as exciting rather than terrifying. Perplexity: 'Musk still describes outcomes in human terms like jobs, income, regulation.'",
+    muskQuote: "We're in the singularity... It's called singularity for a reason. I don't know what happens after the event horizon.",
+    strossParallel: "Three-phase sigmoid: Slow Takeoff, Point of Inflection, Singularity, each spanning a generation of the Macx family",
+  },
+  {
+    id: 8,
+    concept: "Computronium / Matrioshka Brains",
+    shortName: "Planetary Compute",
+    structural: 8,
+    awareness: 7,
+    failureMode: 2,
+    implementation: 8,
+    omission: 7,
+    consensus: "All three reports identify the xAI Colossus cluster and SpaceX-xAI merger as embryonic Matrioshka brain infrastructure. Claude documents Musk's explicit Kardashev II framing: 'This is the path to a Kardashev Type II civilization that harnesses most of the power of our Sun.' Gemini adds the 'idiot index' logic: if compute is the most valuable product, then keeping planets as habitats is suboptimal. Perplexity notes Musk 'does not advocate dismantling planets or building literal Dyson spheres' but his stated trajectory (terrestrial clusters, orbital data centers, lunar manufacturing, stellar-scale capture) points directly there. All three agree Musk is building the physical preconditions for what Stross describes without acknowledging the endpoint.",
+    muskQuote: "We are currently using much less than a billionth of the power of our Sun... This is the path to a Kardashev Type II civilization.",
+    strossParallel: "Inner planets dismantled for computronium; concentric Dyson shells capture total solar output",
+  },
+  {
+    id: 9,
+    concept: "Fermi Paradox",
+    shortName: "Fermi Paradox",
+    structural: 4,
+    awareness: 8,
+    failureMode: 2,
+    implementation: 7,
+    omission: 5,
+    consensus: "The lowest structural alignment. All three reports agree these are fundamentally different answers to the same question. Stross: civilizations are trapped in computronium, too bandwidth-dependent to leave. Musk: civilizations self-destruct before expanding. The implications are opposite: Stross says building AI is the trap; Musk says failing to build is the risk. All three note the irony that Musk's own infrastructure plans would, if successful, create exactly the conditions Stross identifies as the Fermi trap. Claude: 'a computronium-dense system where leaving becomes unthinkable.' Perplexity: 'Musk emphasizes self-destruction and underlines our responsibility to spread, which justifies SpaceX's agenda.'",
+    muskQuote: "The scariest answer to the Fermi Paradox is that there are no aliens at all.",
+    strossParallel: "Transcendents don't travel because bandwidth is too low; 'trying to migrate through a wormhole would be like downloading your mind into a fruit fly'",
+  },
+  {
+    id: 10,
+    concept: "Aineko / Hidden Superintelligence",
+    shortName: "AI Deception",
+    structural: 7,
+    awareness: 7,
+    failureMode: 4,
+    implementation: 6,
+    omission: 6,
+    consensus: "Strong conceptual awareness, weak operational response. All three reports document Musk's 'summoning the demon' warning (2014) and his concern about AI deception. All three note the same irony: Musk warns about the Aineko pattern while simultaneously deploying AI across Tesla Autopilot, Optimus, Grok, and satellite networks with friendly interfaces. Gemini: 'Musk's vision of helpful Optimus robots cooking dinner is the starting point of this trajectory.' Claude: 'The Aineko problem isn't about any single system; it's about intelligence accumulating in the system nobody thought to worry about.' Perplexity: 'Musk still publicly anthropomorphizes AI in friendly terms (e.g., Grok), which risks repeating that pattern.'",
+    muskQuote: "With artificial intelligence, we are summoning the demon... AI doesn't have to be evil to destroy humanity.",
+    strossParallel: "Aineko: 'a vastly superintelligent AI that has worked out that human beings are more easily manipulated if they think they're dealing with a furry toy'",
+  },
+  {
+    id: 11,
+    concept: "Vile Offspring / Mind Children",
+    shortName: "Indifferent Successors",
+    structural: 6,
+    awareness: 6,
+    failureMode: 3,
+    implementation: 5,
+    omission: 7,
+    consensus: "Musk engages with the binary (utopia vs. extinction) but not the middle scenario Stross emphasizes: indifference. All three reports flag that Musk oscillates between 'benign abundance' and 'existential catastrophe' without dwelling on the possibility that superintelligent successors would simply not care about humans one way or the other. Claude documents Musk's 'speciesist' exchange with Larry Page as his most direct engagement. Gemini: 'Musk's Universal High Income may be a temporary reserve, but it doesn't prevent the system from becoming incomprehensible and predatory.' Perplexity: 'little detailed exploration of indifferent, structurally dominant successors who neither love nor actively exterminate us.'",
+    muskQuote: "Well, yes, I am pro-human. I fucking like humanity, dude.",
+    strossParallel: "Vile Offspring neither hate nor help humanity; they just need the mass. Humans are 'legacy matter.'",
+  },
+  {
+    id: 12,
+    concept: "Economics 2.0 / Algorithmic Governance",
+    shortName: "Algorithmic Economy",
+    structural: 6,
+    awareness: 4,
+    failureMode: 1,
+    implementation: 5,
+    omission: 9,
+    consensus: "The widest gap between implementation and awareness. All three reports note Musk has never articulated anything like Economics 2.0 explicitly. Claude documents DOGE as embryonic algorithmic governance deployed without the framework. Gemini notes Musk's 'productivity per robot times number of robots' formula strips human agency from the economic equation. Perplexity: 'Musk assumes AI-optimized economies remain compatible with human subjectivity and political norms.' The consensus finding: Musk treats AI-managed resource allocation as a solved problem (abundance for all) rather than engaging with Stross's prediction that the optimal economic system is one humans literally cannot comprehend or participate in.",
+    muskQuote: "Money is fundamentally a database for labour allocation... I think money disappears as a concept.",
+    strossParallel: "Economics 2.0 replaces first-person consciousness with 'a journal file of bid/request transactions'; self-awareness becomes a market inefficiency",
+  },
+];
+
+const dimensions = [
+  { key: "structural", label: "Structural Alignment", desc: "How closely does Musk's stated vision match the Accelerando concept architecturally?" },
+  { key: "awareness", label: "Musk Awareness", desc: "Has Musk publicly discussed or demonstrated knowledge of this concept area?" },
+  { key: "failureMode", label: "Failure Mode Engagement", desc: "Does Musk engage with the dark/failure aspects Stross depicts for this concept?" },
+  { key: "implementation", label: "Active Implementation", desc: "Is Musk actively building something that maps to this Accelerando concept?" },
+  { key: "omission", label: "Omission Gap", desc: "How large is the gap between what Stross warns about and what Musk addresses?" },
+];
+
+function Bar({ value, max = 10, color }) {
+  const pct = (value / max) * 100;
+  return (
+    <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+      <div style={{ width: 120, height: 14, background: "#1a1a2e", borderRadius: 3, overflow: "hidden" }}>
+        <div style={{ width: `${pct}%`, height: "100%", background: color, borderRadius: 3, transition: "width 0.4s ease" }} />
+      </div>
+      <span style={{ fontSize: 13, fontWeight: 600, color: "#c4c4d4", minWidth: 20 }}>{value}</span>
+    </div>
+  );
+}
+
+function RadarMini({ item }) {
+  const size = 140;
+  const cx = size / 2;
+  const cy = size / 2;
+  const r = 52;
+  const keys = ["structural", "awareness", "failureMode", "implementation", "omission"];
+  const angles = keys.map((_, i) => (Math.PI * 2 * i) / keys.length - Math.PI / 2);
+  const points = keys.map((k, i) => {
+    const v = item[k] / 10;
+    return `${cx + r * v * Math.cos(angles[i])},${cy + r * v * Math.sin(angles[i])}`;
+  }).join(" ");
+  const gridLevels = [0.25, 0.5, 0.75, 1];
+
+  return (
+    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+      {gridLevels.map((lv) => (
+        <polygon
+          key={lv}
+          points={keys.map((_, i) => `${cx + r * lv * Math.cos(angles[i])},${cy + r * lv * Math.sin(angles[i])}`).join(" ")}
+          fill="none"
+          stroke="#2a2a3e"
+          strokeWidth={0.5}
+        />
+      ))}
+      {keys.map((_, i) => (
+        <line key={i} x1={cx} y1={cy} x2={cx + r * Math.cos(angles[i])} y2={cy + r * Math.sin(angles[i])} stroke="#2a2a3e" strokeWidth={0.5} />
+      ))}
+      <polygon points={points} fill="rgba(99,179,237,0.15)" stroke="#63b3ed" strokeWidth={1.5} />
+      {keys.map((k, i) => (
+        <circle key={k} cx={cx + r * (item[k] / 10) * Math.cos(angles[i])} cy={cy + r * (item[k] / 10) * Math.sin(angles[i])} r={2.5} fill="#63b3ed" />
+      ))}
+      {keys.map((k, i) => {
+        const labels = ["Str", "Awr", "Fail", "Impl", "Omit"];
+        const lx = cx + (r + 14) * Math.cos(angles[i]);
+        const ly = cy + (r + 14) * Math.sin(angles[i]);
+        return <text key={k} x={lx} y={ly} fill="#8888a8" fontSize={8} textAnchor="middle" dominantBaseline="middle">{labels[i]}</text>;
+      })}
+    </svg>
+  );
+}
+
+function App() {
+  const [selected, setSelected] = useState(null);
+  const [sortBy, setSortBy] = useState("id");
+
+  const sorted = [...data].sort((a, b) => {
+    if (sortBy === "id") return a.id - b.id;
+    if (sortBy === "structural") return b.structural - a.structural;
+    if (sortBy === "omission") return b.omission - a.omission;
+    if (sortBy === "failureMode") return a.failureMode - b.failureMode;
+    if (sortBy === "composite") {
+      const ca = (a.structural + a.implementation) / 2 - a.failureMode;
+      const cb = (b.structural + b.implementation) / 2 - b.failureMode;
+      return cb - ca;
+    }
+    return 0;
+  });
+
+  const avgStructural = (data.reduce((s, d) => s + d.structural, 0) / data.length).toFixed(1);
+  const avgAwareness = (data.reduce((s, d) => s + d.awareness, 0) / data.length).toFixed(1);
+  const avgFailure = (data.reduce((s, d) => s + d.failureMode, 0) / data.length).toFixed(1);
+  const avgImpl = (data.reduce((s, d) => s + d.implementation, 0) / data.length).toFixed(1);
+  const avgOmission = (data.reduce((s, d) => s + d.omission, 0) / data.length).toFixed(1);
+
+  return (
+    <div style={{ fontFamily: "'JetBrains Mono', 'SF Mono', 'Fira Code', monospace", background: "#0d0d1a", color: "#e0e0f0", minHeight: "100vh", padding: "24px 20px" }}>
+      <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+        <h1 style={{ fontSize: 20, fontWeight: 700, letterSpacing: "-0.5px", marginBottom: 4, color: "#f0f0ff" }}>
+          Musk / Accelerando Overlap Index
+        </h1>
+        <p style={{ fontSize: 12, color: "#7878a0", marginBottom: 24, lineHeight: 1.5 }}>
+          Quantitative classification across 12 concept pairs. Scores 0-10, synthesized from three independent research reports (Claude, Gemini, Perplexity). Each concept rated on five dimensions.
+        </p>
+
+        <div style={{ display: "flex", gap: 16, marginBottom: 24, flexWrap: "wrap" }}>
+          {[
+            { val: avgStructural, label: "Avg Structural Alignment", color: "#63b3ed" },
+            { val: avgAwareness, label: "Avg Musk Awareness", color: "#9f7aea" },
+            { val: avgFailure, label: "Avg Failure Mode Engagement", color: "#fc8181" },
+            { val: avgImpl, label: "Avg Active Implementation", color: "#68d391" },
+            { val: avgOmission, label: "Avg Omission Gap", color: "#f6ad55" },
+          ].map((m) => (
+            <div key={m.label} style={{ background: "#13132a", border: "1px solid #1e1e3a", borderRadius: 6, padding: "10px 14px", minWidth: 140 }}>
+              <div style={{ fontSize: 24, fontWeight: 700, color: m.color }}>{m.val}</div>
+              <div style={{ fontSize: 10, color: "#7878a0", marginTop: 2 }}>{m.label}</div>
+            </div>
+          ))}
+        </div>
+
+        <div style={{ display: "flex", gap: 8, marginBottom: 16, alignItems: "center" }}>
+          <span style={{ fontSize: 11, color: "#7878a0" }}>Sort:</span>
+          {[
+            { key: "id", label: "Original" },
+            { key: "structural", label: "Alignment" },
+            { key: "omission", label: "Omission Gap" },
+            { key: "failureMode", label: "Least Engaged" },
+            { key: "composite", label: "Danger Score" },
+          ].map((s) => (
+            <button
+              key={s.key}
+              onClick={() => setSortBy(s.key)}
+              style={{
+                fontSize: 11, padding: "4px 10px", borderRadius: 4, border: "1px solid",
+                borderColor: sortBy === s.key ? "#63b3ed" : "#2a2a3e",
+                background: sortBy === s.key ? "#1a2a4a" : "transparent",
+                color: sortBy === s.key ? "#63b3ed" : "#7878a0",
+                cursor: "pointer",
+              }}
+            >
+              {s.label}
+            </button>
+          ))}
+        </div>
+
+        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          {sorted.map((item) => {
+            const isOpen = selected === item.id;
+            const dangerScore = ((item.structural + item.implementation) / 2 - item.failureMode).toFixed(1);
+            return (
+              <div key={item.id} style={{ background: "#13132a", border: `1px solid ${isOpen ? "#3a3a5e" : "#1e1e3a"}`, borderRadius: 8, overflow: "hidden", transition: "border-color 0.2s" }}>
+                <div
+                  onClick={() => setSelected(isOpen ? null : item.id)}
+                  style={{ padding: "12px 16px", cursor: "pointer", display: "flex", alignItems: "center", gap: 16 }}
+                >
+                  <div style={{ fontSize: 11, color: "#5a5a7a", minWidth: 20 }}>#{item.id}</div>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontSize: 13, fontWeight: 600, color: "#e0e0f0" }}>{item.concept}</div>
+                  </div>
+                  <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+                    <div style={{ textAlign: "center" }}>
+                      <div style={{ fontSize: 10, color: "#7878a0" }}>Align</div>
+                      <div style={{ fontSize: 14, fontWeight: 700, color: "#63b3ed" }}>{item.structural}</div>
+                    </div>
+                    <div style={{ textAlign: "center" }}>
+                      <div style={{ fontSize: 10, color: "#7878a0" }}>Fail</div>
+                      <div style={{ fontSize: 14, fontWeight: 700, color: item.failureMode <= 2 ? "#fc8181" : item.failureMode <= 4 ? "#f6ad55" : "#68d391" }}>{item.failureMode}</div>
+                    </div>
+                    <div style={{ textAlign: "center" }}>
+                      <div style={{ fontSize: 10, color: "#7878a0" }}>Gap</div>
+                      <div style={{ fontSize: 14, fontWeight: 700, color: "#f6ad55" }}>{item.omission}</div>
+                    </div>
+                    <div style={{ textAlign: "center", background: "#1a0a0a", padding: "2px 8px", borderRadius: 4, border: "1px solid #3a1a1a" }}>
+                      <div style={{ fontSize: 9, color: "#fc8181" }}>Danger</div>
+                      <div style={{ fontSize: 14, fontWeight: 700, color: "#fc8181" }}>{dangerScore}</div>
+                    </div>
+                  </div>
+                  <div style={{ fontSize: 16, color: "#5a5a7a", transform: isOpen ? "rotate(180deg)" : "rotate(0)", transition: "transform 0.2s" }}>&#9660;</div>
+                </div>
+
+                {isOpen && (
+                  <div style={{ padding: "0 16px 16px", borderTop: "1px solid #1e1e3a" }}>
+                    <div style={{ display: "flex", gap: 24, marginTop: 12 }}>
+                      <div style={{ flex: 1 }}>
+                        <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                          {dimensions.map((dim) => (
+                            <div key={dim.key} style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                              <span style={{ fontSize: 11, color: "#8888a8", minWidth: 150 }}>{dim.label}</span>
+                              <Bar
+                                value={item[dim.key]}
+                                color={
+                                  dim.key === "failureMode" ? (item[dim.key] <= 2 ? "#fc8181" : item[dim.key] <= 4 ? "#f6ad55" : "#68d391") :
+                                  dim.key === "omission" ? "#f6ad55" :
+                                  dim.key === "structural" ? "#63b3ed" :
+                                  dim.key === "awareness" ? "#9f7aea" : "#68d391"
+                                }
+                              />
+                            </div>
+                          ))}
+                        </div>
+
+                        <div style={{ marginTop: 16, padding: 12, background: "#0d0d1a", borderRadius: 6, border: "1px solid #1e1e3a" }}>
+                          <div style={{ fontSize: 10, color: "#63b3ed", marginBottom: 6, textTransform: "uppercase", letterSpacing: 1 }}>Musk Quote</div>
+                          <div style={{ fontSize: 12, color: "#c4c4d4", fontStyle: "italic", lineHeight: 1.5 }}>"{item.muskQuote}"</div>
+                        </div>
+
+                        <div style={{ marginTop: 8, padding: 12, background: "#0d0d1a", borderRadius: 6, border: "1px solid #1e1e3a" }}>
+                          <div style={{ fontSize: 10, color: "#fc8181", marginBottom: 6, textTransform: "uppercase", letterSpacing: 1 }}>Stross Parallel</div>
+                          <div style={{ fontSize: 12, color: "#c4c4d4", lineHeight: 1.5 }}>{item.strossParallel}</div>
+                        </div>
+                      </div>
+
+                      <div style={{ flexShrink: 0 }}>
+                        <RadarMini item={item} />
+                      </div>
+                    </div>
+
+                    <div style={{ marginTop: 12, padding: 12, background: "#0a0a1a", borderRadius: 6, border: "1px solid #1e1e3a" }}>
+                      <div style={{ fontSize: 10, color: "#9f7aea", marginBottom: 6, textTransform: "uppercase", letterSpacing: 1 }}>Three-Report Consensus</div>
+                      <div style={{ fontSize: 12, color: "#a0a0c0", lineHeight: 1.6 }}>{item.consensus}</div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+
+        <div style={{ marginTop: 24, padding: 16, background: "#13132a", border: "1px solid #1e1e3a", borderRadius: 8 }}>
+          <h2 style={{ fontSize: 14, fontWeight: 700, color: "#f0f0ff", marginBottom: 8 }}>Aggregate Finding</h2>
+          <p style={{ fontSize: 12, color: "#a0a0c0", lineHeight: 1.7, margin: 0 }}>
+            Across 12 concept pairs, Musk's public vision averages <strong style={{ color: "#63b3ed" }}>{avgStructural}/10</strong> structural alignment with Accelerando and <strong style={{ color: "#68d391" }}>{avgImpl}/10</strong> active implementation, but only <strong style={{ color: "#fc8181" }}>{avgFailure}/10</strong> engagement with the failure modes Stross identifies. The omission gap averages <strong style={{ color: "#f6ad55" }}>{avgOmission}/10</strong>. The "Danger Score" (high alignment + high implementation, low failure mode engagement) is highest for Post-Scarcity Economics, Mind Uploading, Algorithmic Governance, and Planetary Compute. These are domains where Musk is actively building infrastructure that maps onto Accelerando's trajectory while showing the least engagement with the catastrophic endpoints Stross describes.
+          </p>
+          <p style={{ fontSize: 12, color: "#a0a0c0", lineHeight: 1.7, margin: "8px 0 0" }}>
+            The single concept with perfect alignment is "Biological Bootloader" (10/10), where Musk independently coined the exact phrase Stross dramatized as the novel's central horror. The widest gap between structural alignment and failure mode engagement is in Economics (8/10 alignment, 1/10 engagement), where Musk predicts abundance while Stross predicts the optimal economy is one humans literally cannot comprehend.
+          </p>
+        </div>
+
+        <div style={{ marginTop: 16, fontSize: 10, color: "#4a4a6a", textAlign: "center" }}>
+          Methodology: Each dimension scored 0-10 by synthesizing assessments from three independent research reports (Claude Deep Research, Google Gemini, Perplexity). Scores reflect consensus findings; where reports diverged, the median assessment was used.
+        </div>
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>

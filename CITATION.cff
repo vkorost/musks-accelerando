@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+title: "Musk's Accelerando: How Elon Musk Is Building a Novel Its Author Disowned"
+message: "If you cite this work, please use the metadata below."
+type: generic
+authors:
+  - name: "Claude Code"
+    note: "AI writing system by Anthropic"
+  - family-names: Korostyshevskiy
+    given-names: V.
+    role: "Project director, editorial architect, research coordinator"
+date-released: "2026-03-09"
+url: "https://github.com/musks-accelerando"
+license: "CC-BY-NC-SA-4.0"
+keywords:
+  - "Elon Musk"
+  - "Charles Stross"
+  - "Accelerando"
+  - "artificial intelligence"
+  - "singularity"
+  - "technological convergence"
+  - "science fiction"
+  - "AI trajectory"
+abstract: >-
+  An analytical book examining the structural correspondence between
+  Elon Musk's public technological vision and Charles Stross's 2005
+  novel Accelerando across 12 independently scored concept pairs.
+  Triangulates three intellectual positions: Stross as novelist (2005),
+  Musk as builder, and Stross as polemicist (2022 to 2026). The book
+  treats Musk as an honest actor and leaves genuinely open whether his
+  trajectory is good or bad for humanity.

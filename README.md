@@ -39,7 +39,6 @@ The `data/` directory contains the analytical substrate the book draws from. The
 | `data/concept-pairs.md` | The 12 concept pairs with consensus scores across five dimensions (Structural Alignment, Musk Awareness, Failure Mode Engagement, Active Implementation, Omission Gap), synthesized from three independent research reports |
 | `data/convergence-matrix.md` | Where Musk converges with and diverges from both the 2005 novel and the 2026 Stross, organized by concept pair, with analysis of how the three positions have moved relative to each other over time |
 | `data/accelerando-overlap-index.html` | Interactive visualization of the scoring data. Sortable by alignment, omission gap, danger score. Contains full consensus text, Musk quotes, Stross parallels, and radar charts for each concept pair. Opens in any browser. |
-| `data/accelerando-overlap-index.jsx` | React source code for the interactive visualization, for developers who want to fork or embed it |
 
 ### Meta
 

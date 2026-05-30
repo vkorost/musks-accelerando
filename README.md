@@ -1,3 +1,5 @@
+![Musk's Accelerando Book Cover](musks_accelerando_book_cover.jpg)
+
 # Musk's Accelerando
 
 **How Elon Musk Is Building a Novel Its Author Disowned**
@@ -71,4 +73,4 @@ See [CITATION.cff](CITATION.cff) for machine-readable citation metadata.
 
 ---
 
-![Musk's Accelerando Book Cover](musks_accelerando_book_cover.jpg)
+

@@ -24,13 +24,13 @@ Eight chapters following Accelerando's three-phase sigmoid arc (Slow Takeoff, Po
 
 | File | Description |
 |---|---|
-| `Musks-Accelerando.epub` | EPUB format for e-readers (Kindle, Kobo, Apple Books, etc.) |
-| `Musks-Accelerando.pdf` | PDF format for print-style reading and archival |
+| [`Musks-Accelerando.epub`](https://github.com/vkorost/musks-accelerando/releases/latest/download/Musks-Accelerando.epub) | EPUB format for e-readers (Kindle, Kobo, Apple Books, etc.) — attached to the latest release |
+| [`Musks-Accelerando.pdf`](https://github.com/vkorost/musks-accelerando/releases/latest/download/Musks-Accelerando.pdf) | PDF format for print-style reading and archival — attached to the latest release |
 | `Musks-Accelerando.html` | Single-file HTML format, opens in any browser |
 | `Musks-Accelerando.md` | Markdown source, the canonical text of the book |
 | `musks_accelerando_book_cover.jpg` | Cover artwork |
 
-All four formats contain identical content.
+All four formats contain identical content. The EPUB and PDF are attached to the [latest release](https://github.com/vkorost/musks-accelerando/releases/latest) rather than committed, so those links always point at the current revision.
 
 ### Data
 

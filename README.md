@@ -1,4 +1,4 @@
-![Musk's Accelerando Book Cover](musks_accelerando_book_cover.jpg)
+[![Musk's Accelerando — How Elon Musk Is Building a Novel Its Author Disowned](./musks-accelerando-social-800x400.jpg)](https://github.com/vkorost/musks-accelerando/releases/latest)
 
 # Musk's Accelerando
 
@@ -73,4 +73,4 @@ See [CITATION.cff](CITATION.cff) for machine-readable citation metadata.
 
 ---
 
-
+![Musk's Accelerando Book Cover](musks_accelerando_book_cover.jpg)
